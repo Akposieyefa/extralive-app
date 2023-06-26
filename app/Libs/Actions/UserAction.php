@@ -69,7 +69,7 @@ class UserAction
         DB::commit();
         return response()->json([
             'message' => 'Agent created successfully',
-            'data' => new UserResource($this->model->find($user->id)),
+            'data' => new UserResource($user),
             'success' => true
         ], 201);
     }
@@ -108,7 +108,7 @@ class UserAction
         DB::commit();
         return response()->json([
             'message' => 'Hospital created successfully',
-            'data' => new UserResource($this->model->find($user->id)),
+            'data' => new UserResource($user),
             'success' => true
         ], 201);
     }
@@ -143,8 +143,8 @@ class UserAction
         }
         DB::commit();
         return response()->json([
-            'message' => 'Account created successfully'. $user->enrollee()->emp_id,
-            'data' => new UserResource($this->model->find($user->id)),
+            'message' => 'Account created successfully',
+            'data' => new UserResource($user),
             'success' => true
         ], 201);
     }
