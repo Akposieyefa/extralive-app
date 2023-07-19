@@ -283,6 +283,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AdministerTreatment",
@@ -310,9 +334,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         temperature: "",
         treatment_give: "",
         is_referred: 0,
-        summary: ""
-      }
+        summary: "",
+        type: 0,
+        sub_type: 0
+      },
+      treatmentTypes: [],
+      subTreatmentTypes: []
     };
+  },
+  created: function created() {
+    this.getAllTreatmentTypes();
+    this.getAllSubTreatmentTypes();
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(["user"])),
   methods: {
@@ -337,7 +369,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   is_capitated: _this.treatment.is_capitated,
                   is_ffs: _this.treatment.is_ffs,
                   drugs: _this.treatment.drugs,
-                  cost_of_treatment: _this.treatment.cost_of_treatment,
                   height: _this.treatment.height,
                   weight: _this.treatment.weight,
                   blood_pressure: _this.treatment.blood_pressure,
@@ -346,7 +377,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   temperature: _this.treatment.temperature,
                   treatment_give: _this.treatment.treatment_give,
                   is_referred: _this.treatment.is_referred,
-                  summary: _this.treatment.summary
+                  summary: _this.treatment.summary,
+                  type: _this.treatment.type,
+                  sub_type: _this.treatment.sub_type
                 }, {
                   headers: {
                     Authorization: "Bearer ".concat(localStorage.getItem("token"))
@@ -377,6 +410,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }
           }
         }, _callee, null, [[2, 10]]);
+      }))();
+    },
+    //get all local government areas
+    getAllTreatmentTypes: function getAllTreatmentTypes() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var api_url, response;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                api_url = "https://extralive.herokuapp.com/api/v1/" + "get-treatment-types";
+                _context2.next = 3;
+                return axios.get(api_url, {
+                  headers: {
+                    Authorization: "Bearer ".concat(localStorage.getItem("token"))
+                  }
+                });
+
+              case 3:
+                response = _context2.sent;
+                _this2.treatmentTypes = response.data.data.types;
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    //get all local government areas
+    getAllSubTreatmentTypes: function getAllSubTreatmentTypes() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var api_url, response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                api_url = "https://extralive.herokuapp.com/api/v1/" + "get-sub-treatment-types";
+                _context3.next = 3;
+                return axios.get(api_url, {
+                  headers: {
+                    Authorization: "Bearer ".concat(localStorage.getItem("token"))
+                  }
+                });
+
+              case 3:
+                response = _context3.sent;
+                _this3.subTreatmentTypes = response.data.data.types;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -1205,35 +1298,141 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-6 form-group" }, [
-                    _c("label", { attrs: { for: "address-1" } }, [
-                      _vm._v("Cost of Treatment"),
+                    _c("label", { attrs: { for: "phone" } }, [
+                      _vm._v("Treatment Type"),
                     ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.treatment.cost_of_treatment,
-                          expression: "treatment.cost_of_treatment",
-                        },
-                      ],
-                      staticClass: "form-control form-control-lg",
-                      attrs: { type: "number", id: "address-1", required: "" },
-                      domProps: { value: _vm.treatment.cost_of_treatment },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.treatment,
-                            "cost_of_treatment",
-                            $event.target.value
-                          )
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.treatment.type,
+                            expression: "treatment.type",
+                          },
+                        ],
+                        staticClass: "form-control form-control-lg",
+                        attrs: { id: "lga" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.treatment,
+                              "type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
                         },
                       },
-                    }),
+                      [
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("Select Treatment Type"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(
+                          _vm.treatmentTypes,
+                          function (treatmentType, index) {
+                            return _c(
+                              "option",
+                              {
+                                key: index,
+                                domProps: { value: treatmentType.id },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(treatmentType.name) +
+                                    "\n                        "
+                                ),
+                              ]
+                            )
+                          }
+                        ),
+                      ],
+                      2
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-6 form-group" }, [
+                    _c("label", { attrs: { for: "email" } }, [
+                      _vm._v("Sub Treatment TYpe"),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.treatment.type_sub,
+                            expression: "treatment.type_sub",
+                          },
+                        ],
+                        staticClass: "form-control form-control-lg",
+                        attrs: { id: "lga" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.treatment,
+                              "type_sub",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("Select Sub Treatment Type"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(
+                          _vm.subTreatmentTypes,
+                          function (subTreatmentType, index) {
+                            return _c(
+                              "option",
+                              {
+                                key: index,
+                                domProps: { value: subTreatmentType.id },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      subTreatmentType.name +
+                                        " Cost is " +
+                                        subTreatmentType.cost
+                                    ) +
+                                    "\n                        "
+                                ),
+                              ]
+                            )
+                          }
+                        ),
+                      ],
+                      2
+                    ),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-6 form-group" }, [
@@ -1264,7 +1463,7 @@ var render = function () {
                     }),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm6 form-group" }, [
+                  _c("div", { staticClass: "col-sm-6 form-group" }, [
                     _c("label", [_vm._v("Weight of Patient")]),
                     _vm._v(" "),
                     _c("input", {

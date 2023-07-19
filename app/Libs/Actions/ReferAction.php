@@ -72,17 +72,10 @@ class ReferAction
         } else {
             $referrals= $this->model->where('health_care_id', '=', auth()->user()->hospital->id)->with(['enrolle'])->latest()->paginate(10);
         }
-        if (count($referrals) < 1) {
-            return response()->json([
-                'message' => 'Sorry no referral found',
-                'success' => false
-            ], 404);
-        }else {
-            return ReferResource::collection($referrals)->additional([
-                'message' => "Referral fetched successfully",
-                'success' => true
-            ], 200);
-        }
+        return ReferResource::collection($referrals)->additional([
+            'message' => "Referral fetched successfully",
+            'success' => true
+        ], 200);
     }
 
     /**

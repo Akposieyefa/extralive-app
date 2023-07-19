@@ -71,4 +71,14 @@ class HelperController extends Controller
         return $this->helper->dashBoardCountHelperForHospital();
     }
 
+    public function getAllTreatmentTypes(): JsonResponse
+    {
+        return $this->helper->getAllTreatmentTypes();
+    }
+
+    public function getSubAllTreatmentTypes(): JsonResponse
+    {
+        return $this->helper->getSubAllTreatmentTypes();
+    }
+
 }

@@ -67,17 +67,10 @@ class FeedbackAction
     public function getAllFeedbacksAction(): JsonResponse|AnonymousResourceCollection
     {
         $categories = $this->model->latest()->paginate(10);
-        if (count($categories) < 1) {
-            return response()->json([
-                'message' => 'Sorry no feedback found',
-                'success' => false
-            ], 404);
-        }else {
-            return FeedbackResource::collection($categories)->additional([
-                'message' => "All feedbacks categories",
-                'success' => true
-            ], 200);
-        }
+        return FeedbackResource::collection($categories)->additional([
+            'message' => "All feedbacks categories",
+            'success' => true
+        ], 200);
     }
 
     /**

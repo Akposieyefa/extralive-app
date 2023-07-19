@@ -26,6 +26,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $treatment_give
  * @property mixed $is_referred
  * @property mixed $summary
+ * @property mixed $type
+ * @property mixed $sub_type
+ * @property mixed $subType
  */
 class TreatmentResource extends JsonResource
 {
@@ -55,6 +58,8 @@ class TreatmentResource extends JsonResource
             'treatment_give'  =>  $helper->cleanStringHelper($this->treatment_give),
             'is_referred' => $this->is_referred,
             'summary' => $this->summary,
+            'treatment_type_id' => $this->type,
+            'sub_treatment_type_id'  => $this->subType,
             'relationships' => [
                 'enrolle' => new EnrolleResource($this->whenLoaded('enrolle')),
                 'hospital' => new HospitalResource($this->whenLoaded('hospital'))

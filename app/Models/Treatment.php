@@ -18,7 +18,7 @@ class Treatment extends Model
 
     protected $fillable = [
         'enrolle_id', 'health_care_id', 'verified_by', 'date_and_time', 'is_capitated', 'is_ffs', 'drugs', 'cost_of_treatment',
-        'height', 'weight', 'blood_pressure', 'pulse', 'respiration', 'temperature', 'treatment_give', 'is_referred',  'summary'
+        'height', 'weight', 'blood_pressure', 'pulse', 'respiration', 'temperature', 'treatment_give', 'is_referred',  'summary', 'treatment_type_id', 'sub_treatment_type_id'
     ];
 
     public function enrolle(): BelongsTo
@@ -29,6 +29,16 @@ class Treatment extends Model
     public function hospital(): BelongsTo
     {
         return $this->belongsTo(HealthCare::class, 'health_care_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TreatmentType::class, 'treatment_type_id');
+    }
+
+    public function sub_type()
+    {
+        return $this->belongsTo(SubTreatmentType::class, 'sub_treatment_type_id');
     }
 
 }

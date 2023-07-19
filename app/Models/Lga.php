@@ -14,7 +14,7 @@ class Lga extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'state_id'
+        'lga_name', 'state_id'
     ];
 
     public function state(): BelongsTo

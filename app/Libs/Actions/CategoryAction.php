@@ -72,17 +72,10 @@ class CategoryAction
     public function getAllCategoryAction(): JsonResponse|AnonymousResourceCollection
     {
         $categories = $this->model->latest()->paginate(10);
-        if (count($categories) < 1) {
-            return response()->json([
-                'message' => 'Sorry no category found',
-                'success' => false
-            ], 404);
-        }else {
-            return CategoryResource::collection($categories)->additional([
-                'message' => "All categories",
-                'success' => true
-            ], 200);
-        }
+        return CategoryResource::collection($categories)->additional([
+            'message' => "All categories",
+            'success' => true
+        ], 200);
     }
 
     /**

@@ -126,16 +126,40 @@
                   />
                 </div>
 
-                <div class="col-sm-6 form-group">
-                  <label for="address-1">Cost of Treatment</label>
-                  <input
-                    type="number"
-                    v-model="treatment.cost_of_treatment"
-                    class="form-control form-control-lg"
-                    id="address-1"
-                    required
-                  />
-                </div>
+                  <div class="col-sm-6 form-group">
+                      <label for="phone">Treatment Type</label>
+                      <select
+                          id="lga"
+                          v-model="treatment.type"
+                          class="form-control form-control-lg"
+                      >
+                          <option value="0">Select Treatment Type</option>
+                          <option
+                              v-for="(treatmentType, index) in treatmentTypes"
+                              v-bind:value="treatmentType.id"
+                              :key="index"
+                          >
+                              {{ treatmentType.name }}
+                          </option>
+                      </select>
+                  </div>
+                  <div class="col-sm-6 form-group">
+                      <label for="email">Sub Treatment TYpe</label>
+                      <select
+                          id="lga"
+                          v-model="treatment.type_sub"
+                          class="form-control form-control-lg"
+                      >
+                          <option value="0">Select Sub Treatment Type</option>
+                          <option
+                              v-for="(subTreatmentType, index) in subTreatmentTypes"
+                              v-bind:value="subTreatmentType.id"
+                              :key="index"
+                          >
+                              {{ subTreatmentType.name + " Cost is " + subTreatmentType.cost }}
+                          </option>
+                      </select>
+                  </div>
 
                 <div class="col-sm-6 form-group">
                   <label for="address-2">Height of Patient</label>
@@ -148,7 +172,7 @@
                   />
                 </div>
 
-                <div class="col-sm6 form-group">
+                <div class="col-sm-6 form-group">
                   <label>Weight of Patient</label>
                   <input
                     type="text"
@@ -282,9 +306,17 @@ export default {
         treatment_give: "",
         is_referred: 0,
         summary: "",
+        type : 0,
+        sub_type: 0
       },
+      treatmentTypes: [],
+      subTreatmentTypes: [],
     };
   },
+    created() {
+        this.getAllTreatmentTypes();
+        this.getAllSubTreatmentTypes();
+    },
   computed: {
     ...mapGetters(["user"]),
   },
@@ -303,7 +335,6 @@ export default {
             is_capitated: this.treatment.is_capitated,
             is_ffs: this.treatment.is_ffs,
             drugs: this.treatment.drugs,
-            cost_of_treatment: this.treatment.cost_of_treatment,
             height: this.treatment.height,
             weight: this.treatment.weight,
             blood_pressure: this.treatment.blood_pressure,
@@ -313,6 +344,8 @@ export default {
             treatment_give: this.treatment.treatment_give,
             is_referred: this.treatment.is_referred,
             summary: this.treatment.summary,
+            type: this.treatment.type,
+            sub_type : this.treatment.sub_type
           },
           {
             headers: {
@@ -328,6 +361,29 @@ export default {
         this.loading = false;
       }
     },
+
+      //get all local government areas
+      async getAllTreatmentTypes() {
+          let api_url = process.env.MIX_API_BASE_URL + "get-treatment-types";
+          const response = await axios.get(api_url, {
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+          });
+          this.treatmentTypes = response.data.data.types;
+      },
+
+      //get all local government areas
+      async getAllSubTreatmentTypes() {
+          let api_url = process.env.MIX_API_BASE_URL + "get-sub-treatment-types";
+          const response = await axios.get(api_url, {
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+          });
+          this.subTreatmentTypes = response.data.data.types;
+      },
+
   },
 };
 </script>

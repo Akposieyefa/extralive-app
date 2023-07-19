@@ -159,6 +159,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Nav",
@@ -500,6 +510,46 @@ var render = function () {
                           [
                             _c("i", { staticClass: "bi bi-book" }),
                             _vm._v(" Appointment\n                    "),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/treatment-types" },
+                          },
+                          [
+                            _c("i", { staticClass: "bi bi-file-medical" }),
+                            _vm._v(" Treatment Types\n                    "),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/treatment-sub-types" },
+                          },
+                          [
+                            _c("i", { staticClass: "bi bi-file-medical-fill" }),
+                            _vm._v(
+                              " Sub Treatment Types\n                    "
+                            ),
                           ]
                         ),
                       ],

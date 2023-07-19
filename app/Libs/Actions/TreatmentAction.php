@@ -3,6 +3,7 @@
 namespace App\Libs\Actions;
 
 use App\Http\Resources\TreatmentResource;
+use App\Models\SubTreatmentType;
 use App\Models\Treatment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -39,6 +40,7 @@ class TreatmentAction
      */
     public function createTreatmentAction($request): JsonResponse
     {
+        $cost = SubTreatmentType::find($request->sub_type);
         try {
             $treatment = $this->model->create([
                 'enrolle_id' => $this->helper->getEnrolleeId($request->emp_code),
@@ -48,7 +50,7 @@ class TreatmentAction
                 'is_capitated' => filter_var($request->is_capitated, FILTER_VALIDATE_BOOLEAN),
                 'is_ffs' =>  filter_var($request->is_ffs, FILTER_VALIDATE_BOOLEAN),
                 'drugs' => $request->drugs,
-                'cost_of_treatment' => $request->cost_of_treatment,
+                'cost_of_treatment' =>  $cost->cost,
                 'height' => $request->height,
                 'weight' => $request->weight,
                 'blood_pressure' => $request->blood_pressure,
@@ -57,7 +59,9 @@ class TreatmentAction
                 'temperature' => $request->temperature,
                 'treatment_give' => $request->treatment_give,
                 'is_referred' => filter_var( $request->is_referred, FILTER_VALIDATE_BOOLEAN),
-                'summary' => $request->summary
+                'summary' => $request->summary,
+                'treatment_type_id' => $request->type,
+                'sub_treatment_type_id' => $request->sub_type
             ]);
             return response()->json([
                 'message' => 'Treatment given successfully',
@@ -86,18 +90,10 @@ class TreatmentAction
         } else {
             $treatments = $this->model->where('enrolle_id', '=', auth()->user()->enrollee->id)->latest()->paginate(10);
         }
-
-        if (count($treatments) < 1) {
-            return response()->json([
-                'message' => 'Sorry no treatment found',
-                'success' => false
-            ], 404);
-        }else {
-            return TreatmentResource::collection($treatments)->additional([
-                'message' => "Treatments fetched successfully",
-                'success' => true
-            ], 200);
-        }
+        return TreatmentResource::collection($treatments)->additional([
+            'message' => "Treatments fetched successfully",
+            'success' => true
+        ], 200);
     }
 
     /**

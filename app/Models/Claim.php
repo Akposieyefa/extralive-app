@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method create(array $array)
+ * @method findOrFail($id)
+ */
 class Claim extends Model
 {
     use HasFactory, SoftDeletes;
@@ -25,5 +29,5 @@ class Claim extends Model
     {
         return $this->belongsTo(HealthCare::class, 'health_care_id');
     }
-    
+
 }

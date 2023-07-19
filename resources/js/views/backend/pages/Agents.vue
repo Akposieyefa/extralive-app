@@ -96,7 +96,7 @@
                 </table>
               </div>
               <div class="card-footer border-0 py-5">
-                 <PaginationComponet :pagination="agents" @paginate="getAllAgents()" :offset="10"></PaginationComponet>
+                 <PaginationComponent :pagination="agents" @paginate="getAllAgents()" :offset="10"></PaginationComponent>
               </div>
             </div>
           </div>
@@ -223,7 +223,7 @@ export default {
   name: "Agents",
   components: {
     Nav: () => import("../../../components/Nav.vue"),
-    PaginationComponet: () => import("../../../components/Pagination.vue"),
+    PaginationComponent: () => import("../../../components/Pagination.vue"),
   },
   data() {
     return {
@@ -265,7 +265,7 @@ export default {
       this.agent = response.data.data;
     },
 
-    //udate agent
+    //update agent
     async updateAgent(id) {
       let api_url = process.env.MIX_API_BASE_URL + "account-update-agent/";
       try {

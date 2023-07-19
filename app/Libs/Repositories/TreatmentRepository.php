@@ -41,7 +41,6 @@ class TreatmentRepository implements TreatmentRepositoryInterface
             'is_capitated' => 'required',
             'is_ffs' => 'required',
             'drugs' => 'required',
-            'cost_of_treatment' => 'required',
             'height' => 'required',
             'weight' => 'required',
             'blood_pressure' => 'required',
@@ -50,7 +49,9 @@ class TreatmentRepository implements TreatmentRepositoryInterface
             'temperature' => 'required',
             'treatment_give' => 'required',
             'is_referred' => 'required',
-            'summary' => 'required'
+            'summary' => 'required',
+            'type'  => 'required',
+            'sub_type' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -87,7 +88,7 @@ class TreatmentRepository implements TreatmentRepositoryInterface
      * @param $id
      * @return TreatmentResource
      */
-    public function getTreatmentByEnrolleID($id) : TreatmentResource 
+    public function getTreatmentByEnrolleID($id) : TreatmentResource
     {
         return $this->action->getTreatmentByEnrolleID($id);
     }

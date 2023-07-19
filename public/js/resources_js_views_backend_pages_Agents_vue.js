@@ -252,7 +252,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Nav: function Nav() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Nav_vue-_422b2").then(__webpack_require__.bind(__webpack_require__, /*! ../../../components/Nav.vue */ "./resources/js/components/Nav.vue"));
     },
-    PaginationComponet: function PaginationComponet() {
+    PaginationComponent: function PaginationComponent() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Pagination_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../../../components/Pagination.vue */ "./resources/js/components/Pagination.vue"));
     }
   },
@@ -313,7 +313,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
-    //udate agent
+    //update agent
     updateAgent: function updateAgent(id) {
       var _this2 = this;
 
@@ -1180,7 +1180,7 @@ var render = function () {
                   "div",
                   { staticClass: "card-footer border-0 py-5" },
                   [
-                    _c("PaginationComponet", {
+                    _c("PaginationComponent", {
                       attrs: { pagination: _vm.agents, offset: 10 },
                       on: {
                         paginate: function ($event) {

@@ -70,6 +70,16 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
+                        <router-link class="nav-link" to="/treatment-types">
+                            <i class="bi bi-file-medical"></i> Treatment Types
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/treatment-sub-types">
+                            <i class="bi bi-file-medical-fill"></i> Sub Treatment Types
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
                         <router-link class="nav-link" to="/feedbacks">
                             <i class="bi bi-arrow-clockwise"></i> Feedback
                         </router-link>

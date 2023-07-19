@@ -43,11 +43,11 @@ class ClaimAction
             $claim = $this->model->create([
                 'enrolle_id' => $this->helper->getEnrolleeId($request->emp_code),
                 'health_care_id' => auth()->user()->hospital->id,
-                'date_of_admission' => $request->date_of_admission, 
+                'date_of_admission' => $request->date_of_admission,
                 'date_of_discharge' => $request->date_of_discharge,
-                'treatment_details' => $request->treatment_details, 
-                'diagnosis' => $request->diagnosis, 
-                'investigations' => $request->investigations, 
+                'treatment_details' => $request->treatment_details,
+                'diagnosis' => $request->diagnosis,
+                'investigations' => $request->investigations,
                 'cost' => $request->cost
             ]);
             return response()->json([
@@ -78,7 +78,11 @@ class ClaimAction
         ], 200);
     }
 
-    public function approveClaimAction($id)
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function approveClaimAction($id): JsonResponse
     {
         $claim = $this->model->findOrFail($id);
         try {
@@ -98,8 +102,12 @@ class ClaimAction
             ], 400);
         }
     }
-    
-    public function declineClaimAction($id)
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function declineClaimAction($id): JsonResponse
     {
         $claim = $this->model->findOrFail($id);
         try {
@@ -145,11 +153,11 @@ class ClaimAction
         $claim =  $this->model->findOrFail($id);
         try {
             $update = $claim->update([
-                'date_of_admission' => empty($request->date_of_admission) ? $claim->date_of_admission :  $request->date_of_admission, 
+                'date_of_admission' => empty($request->date_of_admission) ? $claim->date_of_admission :  $request->date_of_admission,
                 'date_of_discharge' => empty($request->date_of_discharge) ? $claim->date_of_discharge : $request->date_of_discharge,
-                'treatment_details' => empty($request->treatment_details) ? $claim->treatment_details : $request->treatment_details, 
-                'diagnosis' => empty($request->diagnosis) ? $claim->diagnosis :  $request->diagnosis, 
-                'investigations' => empty($request->investigations) ? $claim->investigations : $request->investigations, 
+                'treatment_details' => empty($request->treatment_details) ? $claim->treatment_details : $request->treatment_details,
+                'diagnosis' => empty($request->diagnosis) ? $claim->diagnosis :  $request->diagnosis,
+                'investigations' => empty($request->investigations) ? $claim->investigations : $request->investigations,
                 'cost' => empty($request->cost) ? $claim->cost : $request->cost
             ]);
             return response()->json([

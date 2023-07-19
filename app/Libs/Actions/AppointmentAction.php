@@ -67,18 +67,10 @@ class AppointmentAction
         } else {
             $appointments = $this->model->where('enrolle_id', '=', auth()->user()->enrollee->id)->latest()->paginate(10);
         }
-
-        if (count($appointments) < 1) {
-            return response()->json([
-                'message' => 'Sorry no appointment found',
-                'success' => false
-            ], 404);
-        }else {
-            return AppointmentResource::collection($appointments)->additional([
-                'message' => "Appointments fetched successfully",
-                'success' => true
-            ], 200);
-        }
+        return AppointmentResource::collection($appointments)->additional([
+            'message' => "Appointments fetched successfully",
+            'success' => true
+        ], 200);
     }
 
     /**

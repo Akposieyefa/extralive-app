@@ -192,6 +192,24 @@ class SystemHelper
         return $end_date;
     }
 
+    public function getAllTreatmentTypes(): JsonResponse
+    {
+        return response()->json([
+            "data" => [
+                'types' =>  DB::table('treatment_types')->get(),
+            ]
+        ], 200);
+    }
+
+    public function getSubAllTreatmentTypes(): JsonResponse
+    {
+        return response()->json([
+            "data" => [
+                'types' =>  DB::table('sub_treatment_types')->get(),
+            ]
+        ], 200);
+    }
+
 
 
 }

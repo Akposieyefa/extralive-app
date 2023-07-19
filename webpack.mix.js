@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 //online  https://abshia-health.herokuapp.com/
 //local http://127.0.0.1:8000/
 //https://abshia.net/
-mix.browserSync('https://extralive.herokuapp.com/');
+mix.browserSync('https://abshia-health.herokuapp.com/');
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .postCss('resources/css/app.css', 'public/css', [

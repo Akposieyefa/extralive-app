@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\SubTreatmentTypeController;
+use App\Http\Controllers\Api\TreatmentTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PlanController;
@@ -35,6 +37,8 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
         Route::get('create-helpers', 'createUserHelper');
         Route::get('lga-helper/{id}', 'getLgaByStateId');
         Route::get('get-all-lga', 'allLga');
+        Route::get('get-treatment-types', 'getAllTreatmentTypes');
+        Route::get('get-sub-treatment-types', 'getSubAllTreatmentTypes');
     });
 
     Route::controller(UserController::class)->group(function () { //create new users
@@ -84,6 +88,22 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function ($router) {
             Route::get('categories/{id}',  'show');
             Route::patch('categories/{id}',  'update');
             Route::delete('categories/{id}',  'destroy');
+        });
+
+        Route::controller(TreatmentTypeController::class)->group(function () { // categories routes
+            Route::post('treatment-types',  'store');
+            Route::get('treatment-types',  'index');
+            Route::get('treatment-types/{id}',  'show');
+            Route::patch('treatment-types/{id}',  'update');
+            Route::delete('treatment-types/{id}',  'destroy');
+        });
+
+        Route::controller(SubTreatmentTypeController::class)->group(function () { // categories routes
+            Route::post('treatment-sub-types',  'store');
+            Route::get('treatment-sub-types',  'index');
+            Route::get('treatment-sub-types/{id}',  'show');
+            Route::patch('treatment-sub-types/{id}',  'update');
+            Route::delete('treatment-sub-types/{id}',  'destroy');
         });
 
         Route::controller(UserController::class)->group(function () { //create new users

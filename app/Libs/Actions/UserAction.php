@@ -269,17 +269,10 @@ class UserAction
     public function getAllAgentAction(): JsonResponse|AnonymousResourceCollection
     {
         $agents = $this->model->where('role', '=', RolesEnum::AGENT)->latest()->paginate(10);
-        if (count( $agents) < 1) {
-            return response()->json([
-                'message' => 'Sorry no agent found',
-                'success' => false
-            ], 404);
-        }else {
-            return UserResource::collection($agents)->additional([
-                'message' => "All agents",
-                'success' => true
-            ], 200);
-        }
+        return UserResource::collection($agents)->additional([
+            'message' => "All agents",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -296,17 +289,10 @@ class UserAction
                     $query->where('health_care_id', '=', auth()->user()->hospital->id);
                 })->latest()->paginate(10);
         }
-        if (count($enrolled_users) < 1) {
-            return response()->json([
-                'message' => 'Sorry no enrolled users found',
-                'success' => false
-            ], 404);
-        }else {
-            return UserResource::collection($enrolled_users)->additional([
-                'message' => "All  enrolled users",
-                'success' => true
-            ], 200);
-        }
+        return UserResource::collection($enrolled_users)->additional([
+            'message' => "All  enrolled users",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -430,7 +416,7 @@ class UserAction
     {
         $account =  $this->model->findOrFail($id);
         try {
-            $update = $account->hospital()->update([
+            $account->hospital()->update([
                 'name' => empty($request->name) ? $account->name : $request->name,
                 'address' => empty($request->address) ? $account->address : $request->address,
                 'lga_id' => empty($request->lga_id) ? $account->lga_id : $request->lga_id,
